@@ -1,8 +1,22 @@
 const Tea = require('../models/tea');
+const Category = require('../models/category');
 const asyncHandler = require('express-async-handler');
 
 exports.index = asyncHandler(async(req, res, next)=> {
-    res.send('Not implemented <b>YET</b>: Home page.')
+    const [
+        numTea, 
+        numCategories,
+    ] = await Promise.all([
+        Tea.countDocuments({}).exec(),
+        Category.countDocuments({}).exec(),
+    ]);
+    res.render('index', {
+        title: 'Tea store',
+        head: 'head',
+        sidebar: 'sidebar',
+        tea_count: numTea,
+        category_count: numCategories,
+    })
 })
 
 exports.tea_list = asyncHandler(async(req, res, next)=> {

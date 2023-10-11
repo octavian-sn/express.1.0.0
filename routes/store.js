@@ -23,7 +23,7 @@ router.get('/tea/:id/update', tea_controller.tea_delete_post);
 
 router.get('/tea/:id', tea_controller.tea_detail);
 
-router.get('/tea', tea_controller.tea_list);
+router.get('/tea-list', tea_controller.tea_list);
 
 //Category routes
 router.get('/category/create', category_controller.category_create_get);
@@ -40,6 +40,6 @@ router.get('/category/:id/update', category_controller.category_delete_post);
 
 router.get('/category/:id', category_controller.category_detail);
 
-router.get('/category', category_controller.category_list);
+router.get('/categories', category_controller.category_list);
 
 module.exports = router;
