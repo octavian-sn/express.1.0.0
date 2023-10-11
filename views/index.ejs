@@ -1,12 +1,33 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="shortcut icon" href="#">
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<html lang="en">
+
+<%- include(head) %>
+
+<body id="abc">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-2">
+        <%- include(sidebar) %>
+      </div>
+      <div>
+        <h1>
+          <%= title %>
+        </h1>
+        <p>Tea store with all kinds of tea. Enjoy!</p>
+
+        <h1>Dynamic content</h1>
+        <p>The store has the following record counts:</p>
+        <ul>
+          <li><strong>Tea types on sale:</strong>
+            <%= tea_count %>
+          </li>
+          <li><strong>Categories:</strong>
+            <%= category_count %>
+          </li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+</body>
 </html>
