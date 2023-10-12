@@ -34,7 +34,22 @@ exports.tea_list = asyncHandler(async(req, res, next)=> {
 })
 
 exports.tea_detail = asyncHandler(async(req, res, next)=> {
-    res.send(`Not implemented <b>YET</b>: ${req.params.id}.`)
+    const tea = await Tea.findById(req.params.id)
+    .populate('category')
+    .exec();
+
+    if (tea === null){
+        const err = new Error('Tea not found');
+        err.status = 404;
+        return next(err);
+    }
+
+    res.render('tea_detail',{
+        title: 'Tea Details',
+        head: 'head',
+        sidebar: 'sidebar',
+        tea,
+    })
 })
 
 exports.tea_create_get = asyncHandler(async(req, res, next)=> {
