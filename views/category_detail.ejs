@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include(head) %>
+
+<body id="abc">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2">
+                <%- include(sidebar) %>
+            </div>
+            <div class="col-sm-4">
+                <h1>
+                    <%= title %>
+                </h1>
+                <hr>
+                <h1><%= category.name %> Tea</h1>
+
+                <p><%= category.description %></p>
+                <h4>All available types of <%= category.name %> tea:</h4>
+                <ul>
+                    <% if (tea_list.length > 0) { %>
+                        <% tea_list.forEach(function(tea) { %>
+                            <li>
+                                <a href="<%= tea.url %>">
+                                    <%= tea.name %>
+                                </a>
+                                <p><%= tea.description %></p>
+                            </li>
+                            <% }); %>
+                                <% } else { %>
+                                    <li>There is no tea.</li>
+                                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
