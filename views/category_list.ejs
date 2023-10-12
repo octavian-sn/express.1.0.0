@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include(head) %>
+
+<body id="abc">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2">
+                <%- include(sidebar) %>
+            </div>
+            <div class="col-sm-4">
+                <h1>
+                    <%= title %>
+                </h1>
+
+                <ul>
+                    <% if (category_list.length > 0) { %>
+                        <% category_list.forEach(function(category) { %>
+                            <li>
+                                <a href="<%= category.url %>">
+                                    <%= category.name %>
+                                </a>
+                                <p><%= category.description %></p>
+                            </li>
+                            <% }); %>
+                                <% } else { %>
+                                    <li>There is no category.</li>
+                                    <% } %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

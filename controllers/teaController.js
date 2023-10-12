@@ -22,7 +22,6 @@ exports.index = asyncHandler(async(req, res, next)=> {
 exports.tea_list = asyncHandler(async(req, res, next)=> {
     const allTea = await Tea.find({})
     .sort({ title: 1})
-    .populate('category')
     .exec();
 
     res.render('tea_list', {
@@ -35,6 +34,7 @@ exports.tea_list = asyncHandler(async(req, res, next)=> {
 
 exports.tea_detail = asyncHandler(async(req, res, next)=> {
     const tea = await Tea.findById(req.params.id)
+    .sort({ title: 1})
     .populate('category')
     .exec();
 
