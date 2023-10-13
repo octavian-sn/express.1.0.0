@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include(head) %>
+
+    <body id="abc">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-2">
+                    <%- include(sidebar) %>
+                </div>
+                <div>
+                    <h1><%= title %></h1>
+
+                    <form method="POST" action="">
+                    <div class="form-group">
+                        <label for="name">Tea name:</label>
+                        <input
+                        id="name"
+                        class="form-control"
+                        type="text"
+                        placeholder="Passion Tea"
+                        name="name"
+                        value="<%= (typeof tea !== 'undefined' ? tea.name : '') %>"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Tea description:</label>
+                        <textarea 
+                        class="form-control"
+                        name="description" 
+                        id="description" 
+                        cols="30" 
+                        rows="10"
+                        
+                        ><%= (typeof tea !== 'undefined' ? tea.description : '') %></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select 
+                        id="category" 
+                        class="form-control"
+                        placeholder="Select tea category"
+                        name="category"
+                        required="true">
+                            <% for (let i = 0; i < categories.length; i++) { %>
+                                <% const category = categories[i]; %>
+                                <% if (locals.tea) { %>
+                                <option
+                                    value="<%= category._id %>"
+                                    <% if (category._id.toString() === tea.category._id.toString()) { %>
+                                    selected="selected"
+                                    <% } %>
+                                >
+                                    <%= category.name %>
+                                </option>
+                                <% } else { %>
+                                <option value="<%= category._id %>"><%= category.name %></option>
+                                <% } %>
+                            <% } %>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price:</label>
+                        <input
+                        id="price"
+                        class="form-control"
+                        type="number"
+                        placeholder="50.99"
+                        name="price"
+                        value="<%= (typeof tea !== 'undefined' ? tea.price : '') %>"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="stock">Stock:</label>
+                        <input
+                        id="stock"
+                        class="form-control"
+                        type="number"
+                        placeholder="200"
+                        name="stock"
+                        value="<%= (typeof tea !== 'undefined' ? tea.stock : '') %>"
+                        />
+                    </div>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                    </form>
+
+                    <% if(locals.errors) { %>
+                    <ul>
+                        <% for(let i = 0; i < errors.length; i++) { %>
+                        <li><%= errors[i].msg %></li>
+                        <% } %>
+                    </ul>
+                    <% } %>
+
+                </div>
+            </div>
+        </div>
+    </body>
+
+</html>
