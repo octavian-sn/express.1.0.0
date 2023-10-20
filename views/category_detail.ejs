@@ -17,9 +17,9 @@
                 <h1><%= category.name %> Tea</h1>
 
                 <p><%= category.description %></p>
-                <h4>All available types of <%= category.name %> tea:</h4>
-                <ul>
-                    <% if (tea_list.length > 0) { %>
+                <% if (tea_list.length > 0) { %>
+                    <h4>All available types of <%= category.name %> tea:</h4>
+                    <ul>
                         <% tea_list.forEach(function(tea) { %>
                             <li>
                                 <a href="<%= tea.url %>">
@@ -27,11 +27,14 @@
                                 </a>
                                 <p><%= tea.description %></p>
                             </li>
-                            <% }); %>
-                                <% } else { %>
-                                    <li>There is no tea.</li>
-                                    <% } %>
-                </ul>
+                        <% }); %>
+                    </ul>
+                <% } else { %>
+                    <h4>There is no tea yet for this category.</h4>
+                <% } %>
+                <hr>
+                <p><a href="<%= category.url %>/delete">Delete category</a></p>
+                <p><a href="<%= category.url %>/update">Update category</a></p>
             </div>
         </div>
     </div>
