@@ -20,6 +20,14 @@
                 <p><strong>Price:</strong> <%= tea.price %></p>
                 <p><strong>In stock:</strong> <%= tea.stock %></p>
                 <p><strong>Category: <a href="<%= tea.category.url %>"><%= tea.category.name %></a></strong></p>
+
+                <hr>
+                <p>
+                <a href="<%= tea.url %>/delete">Delete tea</a>
+                </p>
+                <p>
+                <a href="<%= tea.url %>/update">Update tea</a>
+                </p>
             </div>
         </div>
     </div>
