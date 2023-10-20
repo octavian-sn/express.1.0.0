@@ -92,7 +92,7 @@ exports.tea_create_post = [
       // Extract the validation errors from a request.
       const errors = validationResult(req);
   
-      // Create a genre object with escaped and trimmed data.
+      // Create a tea object with escaped and trimmed data.
       const tea = new Tea({ 
         name: req.body.name, 
         description: req.body.description,
@@ -115,14 +115,14 @@ exports.tea_create_post = [
         return;
       } else {
         // Data from form is valid.
-        // Check if Genre with same name already exists.
+        // Check if tea with same name already exists.
         const teaExists = await Tea.findOne({ name: req.body.name }).exec();
         if (teaExists) {
-          // Genre exists, redirect to its detail page.
+          // tea exists, redirect to its detail page.
           res.redirect(teaExists.url);
         } else {
           await tea.save();
-          // New genre saved. Redirect to genre detail page.
+          // New tea saved. Redirect to tea detail page.
           res.redirect(tea.url);
         }
       }
@@ -145,9 +145,75 @@ exports.tea_delete_post = asyncHandler(async(req, res, next)=> {
 })
 
 exports.tea_update_get = asyncHandler(async(req, res, next)=> {
-    res.send(`Not implemented <b>YET</b>: tea_update_get.`)
+    const [tea, categories] = await Promise.all([
+        Tea.findById(req.params.id).exec(),
+        Category.find({}).exec()
+    ]);
+    res.render('tea_form',{
+        title: 'Update Tea',
+        head: 'head',
+        sidebar: 'sidebar',
+        categories,
+        tea,
+    })
 })
 
-exports.tea_update_post = asyncHandler(async(req, res, next)=> {
-    res.send(`Not implemented <b>YET</b>: tea_update_post.`)
-})
+exports.tea_update_post = [
+    (req, res, next) => {
+        if (!(req.body.categories instanceof Array)) {
+          if (typeof req.body.categories === "undefined") req.body.categories = [];
+          else req.body.categories = new Array(req.body.categories);
+        }
+        next();
+    },
+
+    // Validate and sanitize the name field.
+    body("name", "Name must not be empty.")
+        .trim()
+        .isLength({ min: 1 })
+        .escape(),
+    body("price", "Price must not be empty.")
+        .trim()
+        .isLength({ min: 1 })
+        .escape(),
+    body("stock", "Stock must not be empty.")
+        .trim()
+        .isLength({ min: 1 })
+        .escape(),
+  
+  
+    // Process request after validation and sanitization.
+    asyncHandler(async (req, res, next) => {
+      // Extract the validation errors from a request.
+      const errors = validationResult(req);
+  
+      // Create a tea object with escaped and trimmed data.
+      const tea = new Tea({ 
+        name: req.body.name, 
+        description: req.body.description,
+        category: req.body.category,
+        price: req.body.price,
+        stock: req.body.stock,  
+        _id: req.params.id,
+      });
+  
+      if (!errors.isEmpty()) {
+        const categories = await Category.find({})
+
+        // There are errors. Render the form again with sanitized values/error messages.
+        res.render("tea_form", {
+            title: 'Add Tea',
+            head: 'head',
+            sidebar: 'sidebar',
+            categories,
+            tea
+        });
+        return;
+      } else {
+        // Data from form is valid.
+        const updatedTea = await Tea.findByIdAndUpdate(req.params.id, tea, {});
+        // Redirect to tea detail page.
+        res.redirect(updatedTea.url);
+      }
+    }),
+];
