@@ -15,11 +15,11 @@ router.post('/tea/create', tea_controller.tea_create_post);
 
 router.get('/tea/:id/delete', tea_controller.tea_delete_get);
 
-router.get('/tea/:id/delete', tea_controller.tea_delete_post);
+router.post('/tea/:id/delete', tea_controller.tea_delete_post);
 
 router.get('/tea/:id/update', tea_controller.tea_update_get);
 
-router.get('/tea/:id/update', tea_controller.tea_update_post);
+router.post('/tea/:id/update', tea_controller.tea_update_post);
 
 router.get('/tea/:id', tea_controller.tea_detail);
 
@@ -32,11 +32,11 @@ router.post('/category/create', category_controller.category_create_post);
 
 router.get('/category/:id/delete', category_controller.category_delete_get);
 
-router.get('/category/:id/delete', category_controller.category_delete_post);
+router.post('/category/:id/delete', category_controller.category_delete_post);
 
 router.get('/category/:id/update', category_controller.category_update_get);
 
-router.get('/category/:id/update', category_controller.category_update_post);
+router.post('/category/:id/update', category_controller.category_update_post);
 
 router.get('/category/:id', category_controller.category_detail);
 
