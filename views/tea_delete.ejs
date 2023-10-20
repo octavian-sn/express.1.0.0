@@ -17,13 +17,13 @@
                 <h1><%= tea.name %></h1>
 
                 <p><%= tea.description %></p>
-
-                <p>Do you really want to delete this Tea?</p>
+                <hr>
+                <h6>Do you really want to delete this Tea?</h6>
                 <form method="POST" action="">
                     <div class="form-group">
                         <input id="teaid" class="form-control" type="hidden" name="teaid" required="true" value="<%= tea._id %>">
                     </div>
-                    <button class="btn btn-primary" type="submit">Delete</button>
+                    <button class="btn btn-danger" type="submit">Delete</button>
                 </form>
             </div>
         </div>
