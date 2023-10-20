@@ -69,6 +69,7 @@ exports.category_create_post = [
             title: 'Add category',
             head: 'head',
             sidebar: 'sidebar',
+            errors: errors.array(),
             category
         });
         return;
@@ -111,9 +112,49 @@ exports.category_delete_post = asyncHandler(async(req, res, next)=> {
 })
 
 exports.category_update_get = asyncHandler(async(req, res, next)=> {
-    res.send(`Not implemented <b>YET</b>: category_update_get.`)
+    const category = await Category.findById(req.params.id);
+    res.render('category_form', {
+        title: 'Update Category',
+        head: 'head',
+        sidebar: 'sidebar',
+        category
+    })
 })
 
-exports.category_update_post = asyncHandler(async(req, res, next)=> {
-    res.send(`Not implemented <b>YET</b>: category_update_post.`)
-})
+exports.category_update_post = [
+    // Validate and sanitize the name field.
+    body("name", "Name must not be empty.")
+        .trim()
+        .isLength({ min: 1 })
+        .escape(),
+  
+    // Process request after validation and sanitization.
+    asyncHandler(async (req, res, next) => {
+      // Extract the validation errors from a request.
+      const errors = validationResult(req);
+  
+      // Create a category object with escaped and trimmed data.
+      const category = new Category({ 
+        name: req.body.name, 
+        description: req.body.description,
+        _id: req.params.id,
+      });
+  
+      if (!errors.isEmpty()) {
+        // There are errors. Render the form again with sanitized values/error messages.
+        res.render("category_form", {
+            title: 'Update category',
+            head: 'head',
+            sidebar: 'sidebar',
+            errors: errors.array(),
+            category
+        });
+        return;
+      } else {
+        // Data from form is valid.
+        await Category.findByIdAndUpdate(req.params.id, category, {});
+        // Redirect to category detail page.
+        res.redirect(category.url)
+      }
+    }),
+]

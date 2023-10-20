@@ -109,6 +109,7 @@ exports.tea_create_post = [
             title: 'Add Tea',
             head: 'head',
             sidebar: 'sidebar',
+            errors: errors.array(),
             categories,
             tea
         });
@@ -205,6 +206,7 @@ exports.tea_update_post = [
             title: 'Add Tea',
             head: 'head',
             sidebar: 'sidebar',
+            errors: errors.array(),
             categories,
             tea
         });
