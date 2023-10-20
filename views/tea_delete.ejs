@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include(head) %>
+
+<body id="abc">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2">
+                <%- include(sidebar) %>
+            </div>
+            <div>
+                <h1>
+                    <%= title %>
+                </h1>
+                <hr>
+                <h1><%= tea.name %></h1>
+
+                <p><%= tea.description %></p>
+
+                <p>Do you really want to delete this Tea?</p>
+                <form method="POST" action="">
+                    <div class="form-group">
+                        <input id="teaid" class="form-control" type="hidden" name="teaid" required="true" value="<%= tea._id %>">
+                    </div>
+                    <button class="btn btn-primary" type="submit">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

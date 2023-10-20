@@ -130,11 +130,18 @@ exports.tea_create_post = [
 ];
 
 exports.tea_delete_get = asyncHandler(async(req, res, next)=> {
-    res.send(`Not implemented <b>YET</b>: tea_delete_get.`)
+    const tea = await Tea.findById(req.params.id);
+    res.render('tea_delete',{
+        title: 'Delete Tea',
+        head: 'head',
+        sidebar: 'sidebar',
+        tea
+    })
 })
 
 exports.tea_delete_post = asyncHandler(async(req, res, next)=> {
-    res.send(`Not implemented <b>YET</b>: tea_delete_post.`)
+    await Tea.findByIdAndRemove(req.body.teaid);
+    res.redirect('/store/tea-list');
 })
 
 exports.tea_update_get = asyncHandler(async(req, res, next)=> {
