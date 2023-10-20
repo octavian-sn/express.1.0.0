@@ -21,9 +21,13 @@
 
                 <% if (tea_list.length > 0){ %>
                     <h6>You must delete the following teas before deleting this category:</h6>
-                    <% tea_list.forEach(tea=>{ %>
-                        <a href="<%= tea.url %>"><%= tea.name %></a>     
-                    <% }) %>
+                    <ul>
+                        <% tea_list.forEach(tea=>{ %>
+                            <ul>
+                                <a href="<%= tea.url %>"><%= tea.name %></a>     
+                            </ul>
+                        <% }) %>
+                    </ul>
                 <% } else { %>
                     <h6>Do you really want to delete this Category?</h6>
                     <form method="POST" action="">
